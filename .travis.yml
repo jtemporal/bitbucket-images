@@ -1,0 +1,13 @@
+dist: trusty
+
+script: skip
+
+before_deploy:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker pull atlassian/default-image:2
+
+deploy:
+  provider: script
+  script: bash build.sh
+  on:
+    branch: master
